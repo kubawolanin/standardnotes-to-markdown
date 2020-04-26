@@ -1,0 +1,23 @@
+{
+  "name": "standardnotes-to-markdown",
+  "version": "1.0.0",
+  "description": "This tool converts a backup file from StandardNotes to a set of Markdown files.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index",
+    "clean": "rimraf posts/*"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "config": "^3.3.1",
+    "gray-matter": "^4.0.2",
+    "minimist": "^1.2.5",
+    "slug": "^2.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "rimraf": "^3.0.2"
+  }
+}
