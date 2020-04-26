@@ -2,8 +2,8 @@
   "outputDir": "./posts",
   "slugTitle": true,
   "outputExt": "mdx",
-  "includeOnlyTags": [],
-  "excludeTags": [
-    "smarthome"
-  ]
+  "includeNotesWithTags": [
+    "banana"
+  ],
+  "excludeNotesWithTags": []
 }

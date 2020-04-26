@@ -1,14 +1,18 @@
 {
   "name": "standardnotes-to-markdown",
   "version": "1.0.0",
-  "description": "This tool converts a backup file from StandardNotes to a set of Markdown files.",
+  "description": "Converts a backup file from StandardNotes to a set of Markdown files.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index",
-    "clean": "rimraf posts/*"
+    "start": "node --harmony index",
+    "clean": "rimraf posts/*",
+    "test": "yarn lint && tape test/*-spec.js | tap-dot",
+    "coverage": "nyc --reporter=lcov --reporter=text-summary tape test/*-spec.js nolarge",
+    "lint": "eslint .",
+    "prettier:write": "prettier --write .",
+    "prettier:check": "prettier --check ."
   },
-  "author": "",
+  "author": "Kuba Wolanin (@kubawolanin)",
   "license": "MIT",
   "dependencies": {
     "config": "^3.3.1",
@@ -18,6 +22,11 @@
   },
   "devDependencies": {
     "eslint": "^6.8.0",
-    "rimraf": "^3.0.2"
+    "eslint-config-prettier": "^6.11.0",
+    "mkdirp": "^1.0.4",
+    "nyc": "^15.0.1",
+    "rimraf": "^3.0.2",
+    "tap-dot": "^2.0.0",
+    "tape": "^5.0.0"
   }
 }

@@ -2,3 +2,7 @@ Standard Notes Decrypted Backup - *.txt
 node_modules
 posts/*.md
 posts/*.mdx
+
+coverage/*
+
+.nyc_output/*

@@ -21,12 +21,14 @@ node index "./Standard Notes Decrypted Backup - Sun Apr 26 2020 09_38_12 GMT+020
 ## TODO
 
 - [x] Frontmatter support
-- [ ] Specify a output catalog
-- [ ] Slugify title
+- [x] Specify a output catalog
+- [x] Slugify title
 - [x] Tags support
 - [ ] Configurable fields
-- [ ] Include only specific tags
-- [ ] Exclude specific tags
+- [x] Include only specific tags
+- [x] Exclude specific tags
 - [ ] Typescript
-- [ ] Tests
+- [x] Tests
 - [ ] Ensure output folder exists before trying to save to it
+- [ ] Fallback values if no config param exists
+- [ ] Remove falsy items from include/exclude
