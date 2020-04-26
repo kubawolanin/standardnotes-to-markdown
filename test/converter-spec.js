@@ -93,3 +93,31 @@ test("should exclude notes with a tag", async (t) => {
 
   t.end();
 });
+
+test("should handle both excluded and included", async (t) => {
+  const OUTPUT_PATH = "./test/notes4";
+  const config = {
+    outputDir: OUTPUT_PATH,
+    includeNotesWithTags: ["orange"], // 2 notes exist
+    excludeNotesWithTags: ["banana"],
+  };
+
+  await mkdirp(OUTPUT_PATH);
+
+  converter("./test/test data.txt", config);
+
+  const outputFiles = fs.readdirSync(OUTPUT_PATH);
+  t.equal(
+    outputFiles.length,
+    2,
+    "there are 2 notes containing 'orange' and not containing a 'banana' tag"
+  );
+
+  await rimraf(OUTPUT_PATH, (err) => {
+    if (err) {
+      console.error(err);
+    }
+  });
+
+  t.end();
+});

@@ -2,8 +2,6 @@
   "outputDir": "./posts",
   "slugTitle": true,
   "outputExt": "mdx",
-  "includeNotesWithTags": [
-    "banana"
-  ],
+  "includeNotesWithTags": [],
   "excludeNotesWithTags": []
 }

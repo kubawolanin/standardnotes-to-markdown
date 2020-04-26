@@ -80,7 +80,8 @@ const converter = (inputFile, config) => {
         };
 
         const hasExcludedTag = Boolean(
-          tags &&
+          config.excludeNotesWithTags.length &&
+            tags &&
             tags.filter((tag) => config.excludeNotesWithTags.includes(tag))
               .length
         );

@@ -1,0 +1,14 @@
+language: node_js
+dist: bionic
+notifications:
+  email: false
+cache: yarn
+script:
+  - "yarn"
+  # - "yarn ci"
+jobs:
+  include:
+    - node_js: "13"
+branches:
+  only:
+    - master

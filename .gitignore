@@ -6,3 +6,7 @@ posts/*.mdx
 coverage/*
 
 .nyc_output/*
+
+test/notes*
+
+.env

@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/kubawolanin/standardnotes-to-markdown/branch/master/graph/badge.svg)](https://codecov.io/gh/kubawolanin/standardnotes-to-markdown)
+
 # StandardNotes Backup to Markdown
 
 This tool converts a backup file from StandardNotes to a set of Markdown files.
@@ -15,7 +17,7 @@ This tool makes it possible.
 1. In console type the following command:
 
 ```bash
-node index "./Standard Notes Decrypted Backup - Sun Apr 26 2020 09_38_12 GMT+0200.txt"
+yarn start "./Standard Notes Decrypted Backup - Sun Apr 26 2020 09_38_12 GMT+0200.txt"
 ```
 
 ## TODO
