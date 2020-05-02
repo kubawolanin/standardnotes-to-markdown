@@ -1,10 +1,13 @@
-const argv = require("minimist")(process.argv.slice(2));
-const config = require("config");
-const fs = require("fs");
-const path = require("path");
-const matter = require("gray-matter");
-const slug = require("slug");
-const { pickBy } = require("./utils");
+import * as minimist from "minimist";
+import { config, Config } from "node-config-ts";
+import * as fs from "fs";
+import * as path from "path";
+import * as matter from "gray-matter";
+import * as slug from "slug";
+import { pickBy } from "./utils";
+import { Item } from "./types";
+
+const argv = minimist(process.argv.slice(2));
 
 const contentType = {
   snUserPreferences: "SN|UserPreferences",
@@ -14,7 +17,7 @@ const contentType = {
   tag: "Tag",
 };
 
-const converter = (inputFile, config) => {
+const converter = (inputFile: string, config: Config) => {
   config = {
     outputExt: "md",
     ...config,
@@ -25,12 +28,12 @@ const converter = (inputFile, config) => {
   }
 
   const backupText = fs.readFileSync(path.resolve(inputFile));
-  const backupJson = JSON.parse(backupText);
+  const backupJson = JSON.parse(backupText.toString());
 
   if (backupJson && backupJson.items) {
     console.log(`Found ${backupJson.items.length} items to process.`);
 
-    const tags = backupJson.items.filter((item) => {
+    const tags = backupJson.items.filter((item: Item) => {
       if (config.includeNotesWithTags.length) {
         return (
           item.content_type === contentType.tag &&
@@ -42,18 +45,18 @@ const converter = (inputFile, config) => {
     });
 
     const notes = backupJson.items.filter(
-      (item) => item.content_type === contentType.note
+      (item: Item) => item.content_type === contentType.note
     );
 
     console.log(`Found ${notes.length} notes.`);
 
-    tags.forEach((tag) => {
+    tags.forEach((tag: Item) => {
       const referencedNotes = tag.content.references.filter(
         (ref) => ref.content_type === contentType.note
       );
 
       referencedNotes.forEach(({ uuid }) => {
-        const foundNote = notes.find((note) => note.uuid === uuid);
+        const foundNote = notes.find((note: Item) => note.uuid === uuid);
 
         if (!foundNote.content.tags) {
           foundNote.content.tags = [];
@@ -64,40 +67,42 @@ const converter = (inputFile, config) => {
     });
 
     const markdownNotes = notes
-      .filter((note) => {
+      .filter((note: Item) => {
         if (config.includeNotesWithTags.length) {
           return note.content.tags;
         }
 
         return note;
       })
-      .map(({ content: { title, text, tags }, created_at, updated_at }) => {
-        const meta = {
-          title,
-          created_at,
-          updated_at,
-          tags,
-        };
+      .map(
+        ({ content: { title, text, tags }, created_at, updated_at }: Item) => {
+          const meta = {
+            title,
+            created_at,
+            updated_at,
+            tags,
+          };
 
-        const hasExcludedTag = Boolean(
-          config.excludeNotesWithTags.length &&
-            tags &&
-            tags.filter((tag) => config.excludeNotesWithTags.includes(tag))
-              .length
-        );
+          const hasExcludedTag = Boolean(
+            config.excludeNotesWithTags.length &&
+              tags &&
+              tags.filter((tag) => config.excludeNotesWithTags.includes(tag))
+                .length
+          );
 
-        if (hasExcludedTag) {
-          return null;
+          if (hasExcludedTag) {
+            return null;
+          }
+
+          return {
+            fileName: slug(title),
+            fileText: matter.stringify(text, pickBy(meta)),
+          };
         }
-
-        return {
-          fileName: slug(title),
-          fileText: matter.stringify(text, pickBy(meta)),
-        };
-      })
+      )
       .filter(Boolean);
 
-    markdownNotes.forEach((note) => {
+    markdownNotes.forEach((note: Item) => {
       fs.writeFileSync(
         path.join(config.outputDir, `${note.fileName}.${config.outputExt}`),
         note.fileText
@@ -110,6 +115,4 @@ if (require.main === module) {
   converter(argv._[0], config);
 }
 
-module.exports = {
-  converter,
-};
+export { converter };
