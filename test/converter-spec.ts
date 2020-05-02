@@ -1,19 +1,19 @@
-const fs = require("fs");
-const path = require("path");
-const rimraf = require("rimraf");
-const mkdirp = require("mkdirp");
-const test = require("tape");
-const { converter } = require("../index");
+import * as fs from "fs";
+import * as path from "path";
+import * as rimraf from "rimraf";
+import * as mkdirp from "mkdirp";
+import * as test from "tape";
+import { converter } from "../lib/index";
 // const defaultConfig = require("../config/default.json");
 
-test("should convert test data to files", async (t) => {
+test("should convert test data to files", async t => {
   const OUTPUT_PATH = "./test/notes1";
   const config = {
     outputDir: OUTPUT_PATH,
     slugTitle: true,
     outputExt: "mdx",
     includeNotesWithTags: [],
-    excludeNotesWithTags: [],
+    excludeNotesWithTags: []
   };
 
   await mkdirp(OUTPUT_PATH);
@@ -25,25 +25,25 @@ test("should convert test data to files", async (t) => {
   const outputFiles = fs.readdirSync(OUTPUT_PATH);
   t.equal(outputFiles.length, 22, "there are 22 notes");
 
-  outputFiles.forEach((file) =>
+  outputFiles.forEach(file =>
     t.equal(path.extname(file), ".mdx", `${file} has the right extension`)
   );
 
-  await rimraf(OUTPUT_PATH, (err) => {
+  await rimraf(OUTPUT_PATH, err => {
     if (err) {
       console.error(err);
     }
   });
 });
 
-test("should include notes only with specific tags", async (t) => {
+test("should include notes only with specific tags", async t => {
   const OUTPUT_PATH = "./test/notes2";
   const config = {
     outputDir: OUTPUT_PATH,
     slugTitle: true,
     outputExt: "md",
     includeNotesWithTags: ["banana"],
-    excludeNotesWithTags: [],
+    excludeNotesWithTags: []
   };
 
   await mkdirp(OUTPUT_PATH);
@@ -53,11 +53,11 @@ test("should include notes only with specific tags", async (t) => {
   const outputFiles = fs.readdirSync(OUTPUT_PATH);
   t.equal(outputFiles.length, 2, "there are 2 notes containing a 'banana' tag");
 
-  outputFiles.forEach((file) =>
+  outputFiles.forEach(file =>
     t.equal(path.extname(file), ".md", `${file} has the right extension`)
   );
 
-  await rimraf(OUTPUT_PATH, (err) => {
+  await rimraf(OUTPUT_PATH, err => {
     if (err) {
       console.error(err);
     }
@@ -66,12 +66,14 @@ test("should include notes only with specific tags", async (t) => {
   t.end();
 });
 
-test("should exclude notes with a tag", async (t) => {
+test("should exclude notes with a tag", async t => {
   const OUTPUT_PATH = "./test/notes3";
   const config = {
+    slugTitle: "",
+    outputExt: "md",
     outputDir: OUTPUT_PATH,
     includeNotesWithTags: [],
-    excludeNotesWithTags: ["apple"],
+    excludeNotesWithTags: ["apple"]
   };
 
   await mkdirp(OUTPUT_PATH);
@@ -85,7 +87,7 @@ test("should exclude notes with a tag", async (t) => {
     "there are 6 notes not containing a 'apple' tag"
   );
 
-  await rimraf(OUTPUT_PATH, (err) => {
+  await rimraf(OUTPUT_PATH, err => {
     if (err) {
       console.error(err);
     }
@@ -94,12 +96,12 @@ test("should exclude notes with a tag", async (t) => {
   t.end();
 });
 
-test("should handle both excluded and included", async (t) => {
+test("should handle both excluded and included", async t => {
   const OUTPUT_PATH = "./test/notes4";
   const config = {
     outputDir: OUTPUT_PATH,
     includeNotesWithTags: ["orange"], // 2 notes exist
-    excludeNotesWithTags: ["banana"],
+    excludeNotesWithTags: ["banana"]
   };
 
   await mkdirp(OUTPUT_PATH);
@@ -113,7 +115,7 @@ test("should handle both excluded and included", async (t) => {
     "there are 2 notes containing 'orange' and not containing a 'banana' tag"
   );
 
-  await rimraf(OUTPUT_PATH, (err) => {
+  await rimraf(OUTPUT_PATH, err => {
     if (err) {
       console.error(err);
     }

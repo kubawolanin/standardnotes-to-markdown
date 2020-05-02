@@ -34,3 +34,5 @@ yarn start "./Standard Notes Decrypted Backup - Sun Apr 26 2020 09_38_12 GMT+020
 - [ ] Ensure output folder exists before trying to save to it
 - [ ] Fallback values if no config param exists
 - [ ] Remove falsy items from include/exclude
+- [ ] CLI params for config (include,exclude etc)
+- [ ] Allow converting only posts without tags

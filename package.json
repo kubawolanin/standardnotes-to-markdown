@@ -4,13 +4,16 @@
   "description": "Converts a backup file from StandardNotes to a set of Markdown files.",
   "main": "index.js",
   "scripts": {
-    "start": "node --harmony index",
+    "start": "node --harmony build/index",
     "clean": "rimraf posts/*",
     "test": "yarn lint && tape test/*-spec.js | tap-dot",
     "coverage": "nyc --reporter=lcov --reporter=text-summary tape test/*-spec.js nolarge",
     "lint": "eslint .",
     "prettier:write": "prettier --write .",
-    "prettier:check": "prettier --check ."
+    "prettier:check": "prettier --check .",
+    "build": "tsc -p lib",
+    "build:watch": "tsc --watch -p lib",
+    "postinstall": "node-config-ts"
   },
   "author": "Kuba Wolanin (@kubawolanin)",
   "license": "MIT",
@@ -18,15 +21,21 @@
     "config": "^3.3.1",
     "gray-matter": "^4.0.2",
     "minimist": "^1.2.5",
+    "node-config-ts": "^3.0.4",
     "slug": "^2.1.1"
   },
   "devDependencies": {
+    "@types/config": "^0.0.36",
+    "@types/minimist": "^1.2.0",
+    "@types/node": "^13.13.4",
+    "@types/slug": "^0.9.1",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",
     "mkdirp": "^1.0.4",
     "nyc": "^15.0.1",
     "rimraf": "^3.0.2",
     "tap-dot": "^2.0.0",
-    "tape": "^5.0.0"
+    "tape": "^5.0.0",
+    "typescript": "^3.8.3"
   }
 }

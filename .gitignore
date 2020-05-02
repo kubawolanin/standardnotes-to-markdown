@@ -10,3 +10,6 @@ coverage/*
 test/notes*
 
 .env
+
+build/*
+*.log
