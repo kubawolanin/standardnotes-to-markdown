@@ -1683,10 +1683,10 @@ slice-ansi@^2.1.0:
     astral-regex "^1.0.0"
     is-fullwidth-code-point "^2.0.0"
 
-slug@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/slug/-/slug-3.2.0.tgz#179c7150d13d2bfb4db7b57000db4a993b655d9e"
-  integrity sha512-bxE2MHjK/5TdaANJR9kMSOYYqNWJ30Hd8HsJXTfyeUbOnKPDH0TWKvNoKXk1N++Lvs8vubF5gLv3Spw2UOg79A==
+slug@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/slug/-/slug-3.3.0.tgz#79841ac7e366d64ead9eb31276f5558d6d51b633"
+  integrity sha512-IbENbO0s6VFKWcjWmaNlb5HSvMSwqz0+IFg6G+dotpYptoY2n6+JcfP8dO2OxG8zyMlt9qTcCmMwBBdfsC1Kcw==
 
 source-map@^0.5.0:
   version "0.5.7"
